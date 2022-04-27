@@ -2,34 +2,54 @@
 //
 // Created by Yiyun Qin
 // Created in April 2022
-// This is a math program, adding number from 1 to n
+// This is a math program, adding numbers input by the user
 
 #include <iostream>
 #include <string>
 
 int main() {
-    // This function adds number from 1 to number the user enters
-    std::string addString;
-    int addInteger;
+    // This function adds numbers from the user
+    std::string addTimeString;
+    std::string addNumberString;
+    int addTimeInteger;
+    int addNumberInteger;
     int answer = 0;
-    int loopCounter = 0;
 
     // input
-    std::cout << "Enter a positive integer: ";
-    std::cin >> addString;
+    std::cout << "How many numbers are you going to add: ";
+    std::cin >> addTimeString;
 
     // process
     std::cout << "" << std::endl;
     try {
-        addInteger = std::stoi(addString);
-        while (loopCounter <= addInteger) {
-            answer = answer + loopCounter;
-            loopCounter = loopCounter + 1;
+        addTimeInteger = std::stoi(addTimeString);
+        if (addTimeInteger <= 0) {
+            std::cout << "Please put in a positive integer.";
+        } else {
+            for (int loopCounter = 0;
+            loopCounter < addTimeInteger; loopCounter++) {
+                std::cout << "Enter a number to add: ";
+                std::cin >> addNumberString;
+                try {
+                    addNumberInteger = std::stoi(addNumberString);
+                    if (addNumberInteger >= 0) {
+                        answer = answer + addNumberInteger;
+                    } else {
+                        answer = answer + 0;
+                    }
+                    if (loopCounter < addTimeInteger - 1) {
+                        continue;
+                    } else {
+                        std::cout << "The sum of just the positive numbers is "
+                        << answer << ".";
+                    }
+                } catch (std::invalid_argument) {
+                    std::cout << "Invalid number!\n";
+                }
+            }
         }
-        std::cout << "The sum of all positive integers from 1 to "
-        << addString << " is " << answer << "." << std::endl;
     } catch (std::invalid_argument) {
-        std::cout << "Invalid number!" << std::endl;
+        std::cout << "Invalid number!";
     }
-    std::cout << "\nDone." << std::endl;
+    std::cout << "\n\nDone." << std::endl;
 }
